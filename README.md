@@ -42,6 +42,8 @@ A instagram share package
 <array>
     <string>instagram</string>
 </array>
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>$(PRODUCT_NAME) wants to save image or viedo to your photo library</string>
 ```
 
 ## Using
