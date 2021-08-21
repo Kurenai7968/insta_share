@@ -5,3 +5,8 @@
 .pub/
 
 build/
+
+.packages
+
+.idea/
+.vscode/

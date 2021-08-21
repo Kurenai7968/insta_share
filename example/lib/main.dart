@@ -28,37 +28,33 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Plugin example app'),
         ),
-        body: Column(
-          children: [
-            TextButton(
-              onPressed: () async {
-                String filename = 'test.jpeg';
-                String dir = (await getTemporaryDirectory()).path;
-                ByteData bytes = await rootBundle.load('assets/$filename');
-                File file = File('$dir/$filename');
-                if (await file.exists()) {
+        body: Center(
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () async {
+                  String filename = 'test.jpeg';
+                  String dir = (await getTemporaryDirectory()).path;
+                  ByteData bytes = await rootBundle.load('assets/$filename');
+                  File file = File('$dir/$filename');
                   await writeToFile(bytes, file.path);
-                }
-                InstaShare.shareToFeed(
-                    path: file.path, type: SharedFileType.image);
-              },
-              child: Text('Share image'),
-            ),
-            TextButton(
-              onPressed: () async {
-                String filename = 'test.mp4';
-                String dir = (await getTemporaryDirectory()).path;
-                ByteData bytes = await rootBundle.load('assets/$filename');
-                File file = File('$dir/$filename');
-                if (await file.exists()) {
+                  InstaShare.share(path: file.path, type: FileType.image);
+                },
+                child: Text('Share image'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  String filename = 'test.mp4';
+                  String dir = (await getTemporaryDirectory()).path;
+                  ByteData bytes = await rootBundle.load('assets/$filename');
+                  File file = File('$dir/$filename');
                   await writeToFile(bytes, file.path);
-                }
-                InstaShare.shareToFeed(
-                    path: file.path, type: SharedFileType.image);
-              },
-              child: Text('Share video'),
-            ),
-          ],
+                  InstaShare.share(path: file.path, type: FileType.video);
+                },
+                child: Text('Share video'),
+              ),
+            ],
+          ),
         ),
       ),
     );

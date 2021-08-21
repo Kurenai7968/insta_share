@@ -11,45 +11,62 @@ public class SwiftInstaSharePlugin: NSObject, FlutterPlugin {
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        if (call.method == "shareToFeed") {
+        // switch call.method {
+        //     case "share":
+        //     case "installed":
+        // }
+        if (call.method == "share") {
             if let arg = call.arguments as? [String:Any] {
                 let path = arg["path"] as! String
                 let type = arg["type"] as! String
 
-                shareToFeed(path: path, type: type)
-                result(true)
+                instagramShare(path: path, type: type)
             }
-            
+        }
+
+        if (call.method == "installed") {
+            result(installed())
         }
     }
     
-    private func shareToFeed(path: String, type: String) {
-        var image: UIImage = UIImage(contentsOfFile: path)!
+    private func instagramShare(path: String, type: String) {
+        print("123" + path)
+//        var image: UIImage = UIImage(contentsOfFile: path)!
+        let instagramUrl = URL(string: "instagram://library?LocalIdentifier=" + path)
         print("123")
-        print(image.pngData())
+        print(URL(string: "instagram://library?LocalIdentifier=\(path)"))
+//        print(image.pngData())
         print("321")
-        guard let instagramUrl = URL(string: "instagram-stories://share") else {
-                          return
-                      }
-
-                      if UIApplication.shared.canOpenURL(instagramUrl) {
-                        var pasterboardItems:[[String:Any]]? = nil
-                        pasterboardItems = [["com.instagram.sharedSticker.backgroundImage": image as Any]]
-                       
-                       
-                        if #available(iOS 10.0, *) {
-                            UIPasteboard.general.setItems(pasterboardItems!)
-                            UIApplication.shared.open(instagramUrl)
-                        } else {
-                            return
-                        }
-                      } else {
-                        print("no esta instalado")
-                          // Instagram app is not installed or can't be opened, pop up an alert
-                      }
-
         
-        
+        guard FileManager.default.fileExists(atPath: path) else {
+            print("File is not exist.")
+            return
+        }
 
+        guard installed() else {
+            print("Instagram is not installed.")
+            let installUrl = URL(string: "https://itunes.apple.com/app/instagram/id389801252")
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(installUrl!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(installUrl!)
+            }
+            return
+        }
+
+        if #available(iOS 10.0, *) {
+            print("555" + instagramUrl!.path)
+            UIApplication.shared.open(instagramUrl!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(instagramUrl!)
+        }
+    }
+
+    private func installed() -> Bool {
+        let instagramUrl = URL(string: "instagram://app")
+        if UIApplication.shared.canOpenURL(instagramUrl!) {
+            return true
+        }
+        return false
     }
 }

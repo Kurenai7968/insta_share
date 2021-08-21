@@ -4,7 +4,6 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>instagram://</string>
 		<string>instagram</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
