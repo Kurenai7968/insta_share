@@ -1,3 +1,4 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Android: Support instragram share and installed function
+* iOS: Support instragram share and installed function
