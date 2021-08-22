@@ -14,7 +14,7 @@ A instagram share package
 
     <provider
         android:name="androidx.core.content.FileProvider"
-        android:authorities="com.kurenai7968.insta_share.file_provider"
+        android:authorities="${applicationId}.com.kurenai7968.insta_share.file_provider"
         android:exported="false"
         android:grantUriPermissions="true">
         <meta-data
