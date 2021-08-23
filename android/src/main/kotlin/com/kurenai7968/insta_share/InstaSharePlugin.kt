@@ -52,8 +52,8 @@ class InstaSharePlugin: FlutterPlugin, MethodCallHandler {
 
         if (file.exists()) {
           val builder = VmPolicy.Builder()
-          StrictMode.setVmPolicy(builder.build());
-          val uri: Uri = getUriForFile(context, "com.kurenai7968.insta_share.file_provider", file)
+          StrictMode.setVmPolicy(builder.build())
+          val uri: Uri = getUriForFile(context, "${context.applicationContext.packageName}.com.kurenai7968.insta_share.file_provider", file)
           shareIntent.action = Intent.ACTION_SEND
           shareIntent.type = type
           shareIntent.`package` = INSTAGRAM_PACKAGE_ID
