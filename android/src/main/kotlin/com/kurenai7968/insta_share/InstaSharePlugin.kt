@@ -51,9 +51,13 @@ class InstaSharePlugin: FlutterPlugin, MethodCallHandler {
         val file = File(path)
 
         if (file.exists()) {
+          val cacheFile = File("${context.cacheDir.path}/${file.name}")
+          if (file.path != cacheFile.path) {
+            file.copyTo(cacheFile, true)
+          }
           val builder = VmPolicy.Builder()
           StrictMode.setVmPolicy(builder.build())
-          val uri: Uri = getUriForFile(context, "${context.applicationContext.packageName}.com.kurenai7968.insta_share.file_provider", file)
+          val uri: Uri = getUriForFile(context, "${context.applicationContext.packageName}.com.kurenai7968.insta_share.file_provider", cacheFile)
           shareIntent.action = Intent.ACTION_SEND
           shareIntent.type = type
           shareIntent.`package` = INSTAGRAM_PACKAGE_ID
