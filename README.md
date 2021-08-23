@@ -37,7 +37,7 @@ A instagram share package
 
 - Paster this code to `ios/Runner/Info.plist` file
 
-```plist
+```
 <key>LSApplicationQueriesSchemes</key>
 <array>
     <string>instagram</string>
